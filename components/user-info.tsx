@@ -21,7 +21,7 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
           </p>
         </div>
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-          <p>Name</p>
+          <p>Name </p>
           <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-slate-100 rounded-md">
             {user?.name}
           </p>
