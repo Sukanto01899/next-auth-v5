@@ -1,34 +1,50 @@
+import { nodemailer } from "nodemailer";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const transporter = nodemailer.createTransport({
+  port: 587,
+  host: "smtp-relay.brevo.com",
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASSWORD,
+  },
+});
+
 export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  const mailOptions = {
+    from: "coingrip@atlasoftech.com",
     to: email,
-    subject: "Confirm your email",
-    html: `<p>Click <a href=${confirmLink}>here</a> to confirm email </p>`,
-  });
+    subject: "Your confirmation link",
+    html: `<p>Confirm your email <a class="font-size: 24px; color:"red" href=${confirmLink}>Here</a></p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${token}`;
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  const mailOptions = {
+    from: "coingrip@atlasoftech.com",
     to: email,
     subject: "Reset your password",
-    html: `<p>Click <a href=${resetLink}>here</a> to confirm email </p>`,
-  });
+    html: `<p>Your password reset <b class="font-size: 24px; color:"red" href=${resetLink}>Link</a></p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
 };
 
 export const sendTwoFactorEmail = async (email: string, token: string) => {
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  const mailOptions = {
+    from: "coingrip@atlasoftech.com",
     to: email,
-    subject: "2FA Code",
-    html: `<p>Your 2FA Code here- <span style="font-size: 40px; color: blue">${token}</span> </p>`,
-  });
+    subject: "Your code",
+    html: `<p>Your code here <b class="font-size: 24px; color:"red">${token}</b></p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
 };
