@@ -30,7 +30,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${token}`;
 
   const mailOptions = {
-    from: "coingrip@atlasoftech.com",
+    from: "airdropsfind@gmail.com",
     to: email,
     subject: "Reset your password",
     html: `<p>Your password reset <b class="font-size: 24px; color:"red" href=${resetLink}>Link</a></p>`,
@@ -41,7 +41,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 
 export const sendTwoFactorEmail = async (email: string, token: string) => {
   const mailOptions = {
-    from: "coingrip@atlasoftech.com",
+    from: "airdropsfind@gmail.com",
     to: email,
     subject: "Your code",
     html: `<p>Your code here <b class="font-size: 24px; color:"red">${token}</b></p>`,
