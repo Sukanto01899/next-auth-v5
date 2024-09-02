@@ -1,4 +1,4 @@
-import { nodemailer } from "nodemailer";
+import nodemailer from "nodemailer";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -6,6 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const transporter = nodemailer.createTransport({
   port: 587,
   host: "smtp-relay.brevo.com",
+  secure: false,
   auth: {
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASSWORD,
@@ -16,7 +17,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
 
   const mailOptions = {
-    from: "coingrip@atlasoftech.com",
+    from: "airdropsfind@gmail.com",
     to: email,
     subject: "Your confirmation link",
     html: `<p>Confirm your email <a class="font-size: 24px; color:"red" href=${confirmLink}>Here</a></p>`,

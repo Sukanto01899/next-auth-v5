@@ -42,6 +42,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     return { success: "Confirmation email sent!" };
   } catch (err) {
-    return { error: "User not created" };
+    console.log(err);
+    return { error: "User not created-last err" };
   }
 };
